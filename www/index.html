@@ -17,6 +17,7 @@
 
   <script src="js/app.js"></script>
   <!-- cordova script (this will be a 404 during development) -->
+  <!--<script src="lib/ngCordova/dist/ng-cordova.js"></script>-->
   <script src="cordova.js"></script>
 
   <!-- your app's js -->
@@ -32,12 +33,21 @@
         <i class="icon ion-navicon"></i>
       </button>
       <h1 class="title">{{activeProject.title}}</h1>
-      <!-- New Task button-->
-      <button class="button button-icon" ng-click="newTask()">
-        <i class="icon ion-compose"></i>
-      </button>
+      <div class="buttons">
+        <!--get photo-->
+        <button class="button button-icon" ng-click="getPhoto()">
+          <i class="icon ion-camera"></i>
+        <!--new task-->
+        <button class="button button-icon button-assertive" ng-click="newTask()">
+          <i class="icon ion-compose"></i>
+        </button>
+        </button>
+      </div>
     </ion-header-bar>
-    <ion-content scroll="false">
+
+    <ion-content scroll="true">
+      <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
+      </ion-refresher>
       <ion-list>
         <ion-item ng-repeat="task in activeProject.tasks">
           {{task.title}}
@@ -64,6 +74,8 @@
   </ion-side-menu>
 
 </ion-side-menus>
+
+
 <script id="new-task.html" type="text/ng-template">
 
   <div class="modal">

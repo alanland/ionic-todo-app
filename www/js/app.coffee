@@ -17,7 +17,19 @@ factory('Projects', ->
     window.localStorage['lastActiveProject'] = index
 ).
 
-controller 'TodoCtrl', ($scope, $timeout, $ionicModal, Projects, $ionicSideMenuDelegate) ->
+factory('Camera', ['$q', ($q)->
+  getPicture: (options)->
+    q = $q.defer()
+    navigator.camera.getPicture((result)->
+      q.resolve(result)
+    , (err)->
+      q.reject(err)
+    , options)
+
+    return q.promise
+]).
+
+controller 'TodoCtrl', ($scope, $http, $timeout, $ionicModal, $ionicSideMenuDelegate, Projects, Camera) ->
   createProject = (projectTitle) ->
     newProject = Projects.newProject(projectTitle)
     $scope.projects.push newProject
@@ -29,6 +41,26 @@ controller 'TodoCtrl', ($scope, $timeout, $ionicModal, Projects, $ionicSideMenuD
   # Grab the last active, or the first project
   $scope.activeProject = $scope.projects[Projects.getLastActiveIndex()]
   # Called to create a new project
+
+  $scope.doRefresh = ->
+    $scope.createTask(title: 'Incoming todo ' + Date.now())
+    $scope.$broadcast('scroll.refreshComplete');
+  #    $scope.$apply()
+
+  $scope.doRefresh2 = ->
+    $http.get('/new-items').success((newItems)->
+      $scope.items = newItems
+    ).finally(->
+      $scope.$broadcast 'scroll.refreshComplete'
+    )
+
+  $scope.getPhoto = ->
+    Camera.getPicture().then (imageURI)->
+      console.log 'success'
+      console.log imageURI
+    , (err)->
+      console.log 'error'
+      console.log err
 
   $scope.newProject = ->
     projectTitle = prompt('Project name')
