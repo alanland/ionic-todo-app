@@ -12,8 +12,17 @@ ionic build
 
 ```
 
+# some work
+
+## icon & splash
+
+## route
+更新项目使用`router`
+
+## separate template file
+
+
 # todo list
-- change icon / splash
 - 左边滑动明细完成
 - 删除项目
 - 删除条目

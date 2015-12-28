@@ -1,0 +1,57 @@
+<!--<ion-view>-->
+<!--<ion-content overflow-scroll="true" padding="true" class="has-header">-->
+
+<ion-side-menus>
+
+  <!-- Center content -->
+  <ion-side-menu-content>
+    <ion-header-bar class="bar-dark">
+      <button class="button button-icon" ng-click="toggleProjects()">
+        <i class="icon ion-navicon"></i>
+      </button>
+      <h1 class="title">{{activeProject.title}}</h1>
+      <div class="buttons">
+        <!--get photo-->
+        <button class="button button-icon" ng-click="getPhoto()">
+          <i class="icon ion-camera"></i>
+        </button>
+        <!--new task-->
+        <button class="button button-icon button-assertive" ng-click="newTask()">
+          <i class="icon ion-compose"></i>
+        </button>
+      </div>
+    </ion-header-bar>
+
+    <ion-content scroll="true">
+      <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
+      </ion-refresher>
+      <ion-list>
+        <ion-item ng-repeat="task in activeProject.tasks">
+          {{task.title}}
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu-content>
+
+  <!-- Left menu -->
+  <ion-side-menu side="left">
+    <ion-header-bar class="bar-dark">
+      <h1 class="title">Projects</h1>
+      <button class="button button-icon ion-plus" ng-click="newProject()">
+      </button>
+    </ion-header-bar>
+    <ion-content scroll="false">
+      <ion-list>
+        <ion-item ng-repeat="project in projects" ng-click="selectProject(project, $index)"
+                  ng-class="{active: activeProject == project}">
+          {{project.title}}
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+
+</ion-side-menus>
+
+<!--</ion-content>-->
+<!--</ion-view>-->
+
