@@ -1,1 +1,4 @@
-/* Empty. Add your own CSS if you like */
+.finished h2 {
+  color: #d9d9d9;
+  text-decoration: line-through;
+}
