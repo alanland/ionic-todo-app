@@ -1,4 +1,4 @@
-angular.module('app.controllers', [])
+angular.module('app.controllers', ['ngCordova'])
 
 
 .controller('loginCtrl', ($scope)->
@@ -108,6 +108,9 @@ angular.module('app.controllers', [])
 # finish task
         task.finished = true
 
+    $scope.showDeviceMotionTest = ->
+        $state.go 'deviceMotionTest'
+
     $scope.items = [
         {id: 0},
         {id: 1},
@@ -132,4 +135,33 @@ angular.module('app.controllers', [])
                 else
                     createProject 'Test Project'
 )
+
+.controller('deviceMotionTestCtrl', ($scope, $state, $cordovaDeviceMotion)->
+    $scope.position = {}
+
+    $scope.goHome = ->
+        $state.go 'home'
+
+    options = frequency: 200
+    document.addEventListener('deviceready', ->
+        watch = $cordovaDeviceMotion.watchAcceleration(options)
+        watch.then(
+            null
+            (err)->
+                return
+            (result)->
+                console.log result
+                $scope.position = result
+        )
+#        watch.clearWatch()
+# OR
+#        $cordovaDeviceMotion.clearWatch(watch).then(
+#            (result)->
+#                return
+#            (err)->
+#                return
+#        )
+    )
+)
+
 

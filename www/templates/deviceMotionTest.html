@@ -1,0 +1,30 @@
+<div class="modal">
+
+  <!-- Modal header bar -->
+  <ion-header-bar class="">
+    <h1 class="title">Motion Test</h1>
+    <button class="button button-clear button-positive" ng-click="goHome()">Cancel</button>
+  </ion-header-bar>
+
+  <!-- Modal content area -->
+  <ion-content>
+    <div class="list">
+      <label class="item item-input">X:
+        <input type="text" ng-model="position.x">
+      </label>
+      <label class="item item-input">Y:
+        <input type="text" ng-model="position.y">
+      </label>
+      <label class="item item-input">Z:
+        <input type="text" ng-model="position.z">
+      </label>
+      <label class="item item-input">T:
+        <input type="text" ng-model="position.timestamp">
+      </label>
+    </div>
+    <div class="padding">
+      <button type="submit" class="button button-block button-positive">Create Task</button>
+    </div>
+  </ion-content>
+
+</div>
