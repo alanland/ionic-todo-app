@@ -6,6 +6,7 @@ Ionic todo app
 sudo npm install -g cordova ionic gulp
 cordova plugin add org.apache.cordova.camera
 ionic plugin add cordova-plugin-geolocation
+cordova plugin add cordova-plugin-geolocation
 
 ionic server
 ionic run

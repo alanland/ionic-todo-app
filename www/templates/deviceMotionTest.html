@@ -9,17 +9,29 @@
   <!-- Modal content area -->
   <ion-content>
     <div class="list">
-      <label class="item item-input">X:
-        <input type="text" ng-model="position.x">
+      <label class="item item-input">
+        <span class="input-label">X方向:</span>
+        <input type="text" ng-disabled="true" ng-model="motion.x">
       </label>
-      <label class="item item-input">Y:
-        <input type="text" ng-model="position.y">
+      <label class="item item-input">
+        <span class="input-label">Y方向:</span>
+        <input type="text" ng-disabled="true" ng-model="motion.y">
       </label>
-      <label class="item item-input">Z:
-        <input type="text" ng-model="position.z">
+      <label class="item item-input">
+        <span class="input-label">Z方向:</span>
+        <input type="text" ng-disabled="true" ng-model="motion.z">
       </label>
-      <label class="item item-input">T:
-        <input type="text" ng-model="position.timestamp">
+      <label class="item item-input">
+        <span class="input-label">时间:</span>
+        <input type="text" ng-disabled="true" ng-model="motion.timestamp | date:'yyyy-MM-dd HH:mm:ss Z'">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">经度:</span>
+        <input type="text" ng-disabled="true" ng-model="position.lat">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">维度:</span>
+        <input type="text" ng-disabled="true" ng-model="position.long">
       </label>
     </div>
     <div class="padding">

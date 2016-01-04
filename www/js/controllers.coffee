@@ -128,7 +128,7 @@ angular.module('app.controllers', ['ngCordova'])
     $timeout ->
         if $scope.projects.length == 0
             loop
-                projectTitle = prompt('Your first project title:')
+                projectTitle = 'first' # prompt('Your first project title:')
                 if projectTitle
                     createProject projectTitle
                     break
@@ -136,7 +136,8 @@ angular.module('app.controllers', ['ngCordova'])
                     createProject 'Test Project'
 )
 
-.controller('deviceMotionTestCtrl', ($scope, $state, $cordovaDeviceMotion)->
+.controller('deviceMotionTestCtrl', ($scope, $state, $cordovaDeviceMotion, $cordovaGeolocation)->
+    $scope.motion = {}
     $scope.position = {}
 
     $scope.goHome = ->
@@ -151,11 +152,46 @@ angular.module('app.controllers', ['ngCordova'])
                 return
             (result)->
                 console.log result
-                $scope.position = result
+                $scope.motion = result
         )
-#        watch.clearWatch()
+        #        watch.clearWatch()
+        # OR
+        #        $cordovaDeviceMotion.clearWatch(watch).then(
+        #            (result)->
+        #                return
+        #            (err)->
+        #                return
+        #        )
+
+
+        #
+        # geo
+        #
+        posOptions = timeout: 5000, enableHighAccuracy: true
+        $cordovaGeolocation.getCurrentPosition(posOptions).then(
+            (position)->
+                lat= position.coords.latitude
+                long = position.coords.longitude
+                $scope.position = lat: lat, long: long
+            (err)->
+                console.log err
+        )
+
+        watchOptions = timeout: 2000, enableHighAccuracy: true
+        watch = $cordovaGeolocation.watchPosition(watchOptions)
+        watch.then(
+            null,
+            (err)->
+                return
+            (position)->
+                lat = position.coords.latitude
+                long = position.coords.longitude
+                $scope.position =
+                    lat: lat, long: long
+        )
+#       watch.clearWatch()
 # OR
-#        $cordovaDeviceMotion.clearWatch(watch).then(
+#        $cordovaGeolocation.clearWatch(watch).then(
 #            (result)->
 #                return
 #            (err)->
@@ -163,5 +199,6 @@ angular.module('app.controllers', ['ngCordova'])
 #        )
     )
 )
+
 
 
